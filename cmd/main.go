@@ -1,6 +1,8 @@
 package main
 
 import (
+	"ProyectoInge/templates"
+	"context"
 	"fmt"
 	"github.com/labstack/echo/v4"
 	"net/http"
@@ -20,13 +22,12 @@ func main() {
 
 	e := echo.New()
 
-	e.Static("/static", "assets")
+	e.Static("/assets", "assets")
 
-	//component := templates.Hello("John")
-	//component.Render(context.Background(), os.Stdout)
+	component := templates.Index()
 
 	e.GET("/", func(c echo.Context) error {
-		return c.String(http.StatusOK, "Hello, World!")
+		return component.Render(context.Background(), c.Response().Writer)
 	})
 
 	e.GET("/uwu", func(c echo.Context) error {

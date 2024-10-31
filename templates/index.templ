@@ -1,5 +1,100 @@
 package templates
 
-templ hello(name string) {
-	<div>Hello, { name }</div>
+templ Index() {
+	<!DOCTYPE html>
+    <html lang="es">
+    <head>
+        <meta charset="UTF-8"/>
+        <link href="/assets/css/output.css" rel="stylesheet">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Navix</title>
+        <script src="/vendored/htmx_v2.0.3.min.js"></script>
+    </head>
+
+    <body class="bg-white text-gray-800">
+    <!-- Header Section -->
+    <header class="bg-green-300 p-4">
+        <div class="container mx-auto flex justify-between items-center">
+            <a class="text-black-50 font-bold text-2xl" href="#">Navix</a>
+            <nav>
+                <ul class="flex space-x-4">
+                    <li><a href="/" class="text-black-50 hover:text-gray-200">Home</a></li>
+                    <li><a href="#" class="text-black-50 hover:text-gray-200">Rastrea</a></li>
+                    <li><a href="#" class="text-black-50 hover:text-gray-200">Quienes Somos</a></li>
+                    <li><a href="#" class="text-black-50 hover:text-gray-200">Reconocimientos</a></li>
+                    <li><a href="#" class="text-black-50 hover:text-gray-200">Ingresa</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Slider Section -->
+    <section class="relative">
+        <div class="relative overflow-hidden">
+            <div class="flex">
+                <!-- Slide 1 -->
+                <div class="min-w-full h-screen md:h-96 flex items-center bg-green-300 text-black-50">
+                    <div class="container mx-auto flex flex-col md:flex-row items-center">
+                        <div class="w-full md:w-1/2 p-6 text-center md:text-left">
+                            <h1 class="text-3xl md:text-4xl font-bold mb-4 leading-tight">
+                                Planea tus rutas con inteligencia artificial
+                            </h1>
+                            <p class="text-base md:text-lg mb-6">
+                                Automatiza el proceso de gestión de envíos de tu compañía mediante inteligencia artificial
+                                para hallar tus recorridos en cuestión de segundos.
+                            </p>
+                            <a href="#"
+                               class="bg-white text-green-600 px-40 py-20 rounded-full hover:bg-gray-200">
+                                Empieza Ya
+                            </a>
+
+                        </div>
+                        <div class="w-full md:w-1/2 mt-6 md:mt-0 flex justify-center md:justify-end">
+                            <img src="../../assets/images/Directionsbro-storyset.svg" alt="img1" class="w-3/4 md:w-full">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Features Section -->
+    <section class="py-16">
+        <div class="container mx-auto text-center">
+            <h2 class="text-3xl font-bold text-green-600 mb-8">Nuestros Servicios</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-white p-6 rounded-lg shadow-lg">
+                    <h3 class="text-2xl font-bold mb-4 text-green-500">Organización Logistica</h3>
+                    <p>
+                    Nos encargamos de ofrecerte una plataforma donde puedes gestionar la logistica de tu empresa,
+                    registrar a tus transportistas y asignarles rutas.
+                    </p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-lg">
+                    <h3 class="text-2xl font-bold mb-4 text-green-500">Trazado de Rutas</h3>
+                    <p>
+                    Mediante nuestros algoritmos y modelo de inteligencia artificial, nos aseguramos de trazar la ruta
+                    optima para tus envios teniendo en cuenta distancias y trafico.
+                    </p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-lg">
+                    <h3 class="text-2xl font-bold mb-4 text-green-500">Seguimiento a Envios</h3>
+                    <p>
+                    Te ofrecemos nuestra plataforma para que puedas realizar seguimiento a tus envios
+                    de manera que siempre estés al tanto de la ubicación y que dia se estima la entrega.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer Section -->
+    <footer class="bg-green-300 text-white py-6">
+        <div class="container mx-auto text-center">
+            <p>&copy; 2024 Universidad Tecnologica de Bolivar. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+    </body>
+    </html>
 }
