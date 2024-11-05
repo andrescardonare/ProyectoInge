@@ -23,14 +23,15 @@ func main() {
 	e := echo.New()
 
 	e.Static("/assets", "assets")
+	e.File("/vendored/htmx_v2.0.3.min.js", "vendored/htmx_v2.0.3.min.js")
 
-	component := templates.Index()
+	home := templates.Index()
 
 	e.GET("/", func(c echo.Context) error {
-		return component.Render(context.Background(), c.Response().Writer)
+		return home.Render(context.Background(), c.Response().Writer)
 	})
 
-	e.GET("/uwu", func(c echo.Context) error {
+	e.GET("/tracking", func(c echo.Context) error {
 		return c.String(http.StatusOK, "Hello, uwu!")
 	})
 
