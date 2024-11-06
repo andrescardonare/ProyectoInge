@@ -2,49 +2,56 @@ terraform {
   required_providers {
     azurerm = {
       source  = "hashicorp/azurerm"
-      version = "~> 3.0.2"
+      version = "=3.0.1"
     }
   }
 
-  required_version = ">= 1.1.0"
+  required_version = ">= 1.9.0"
 }
 
 provider "azurerm" {
+  # The AzureRM Provider supports authenticating using via the Azure CLI, a Managed Identity
+  # and a Service Principal. More information on the authentication methods supported by
+  # the AzureRM Provider can be found here:
+  # https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs#authenticating-to-azure
+
+  # The features block allows changing the behaviour of the Azure Provider, more
+  # information can be found here:
+  # https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/guides/features-block
   features {}
 }
 
-resource "azurerm_resource_group" "rg" {
-  name     = "NavixRG"
-  location = "East US"
+resource "azurerm_resource_group" "navix_rg" {
+  name     = "navix_rg"
+  location = "eastus2"
 }
 
-resource "azurerm_sql_server" "main" {
-  name                         = var.sql_server_name
-  resource_group_name          = azurerm_resource_group.rg.name
-  location                     = azurerm_resource_group.rg.location
-  version                      = "12.0" # SQL Server version
-  administrator_login          = var.sql_admin_username
-  administrator_login_password = var.sql_admin_password
+resource "azurerm_mssql_server" "navix_mssql_server" {
+  name                         = "navix_db_server"
+  resource_group_name          = azurerm_resource_group.navix_rg.name
+  location                     = azurerm_resource_group.navix_rg.location
+  version                      = "12.0"
+  administrator_login = ""
+  administrator_login_password = ""
+}
+/*
+resource " azurerm_mssql_database" "navix_mssql_db" {
+  name         = "Navix-db"
+  server_id    = azurerm_mssql_server.navix_mssql_server.id
+  license_type = "BasePrice"
+  max_size_gb  = 2
 
   tags = {
-    environment = "demo"
+    foo = "bar"
+  }
+
+  # prevent the possibility of accidental data loss
+  lifecycle {
+    prevent_destroy = true
   }
 }
-
-# SQL Database
-resource "azurerm_sql_database" "main" {
-  name                = var.sql_database_name
-  resource_group_name = azurerm_resource_group.rg.name
-  location            = azurerm_resource_group.rg.location
-  server_name         = azurerm_sql_server.main.name
-  sku_name            = "Basic"
-  max_size_gb         = 2
-
-  tags = {
-    environment = "demo"
-  }
-}
-
+*/
+/*
 # Optional: SQL Server Firewall Rule to Allow Azure Services
 resource "azurerm_sql_firewall_rule" "allow_azure_services" {
   name                = "AllowAzureServices"
@@ -53,7 +60,8 @@ resource "azurerm_sql_firewall_rule" "allow_azure_services" {
   start_ip_address    = "0.0.0.0"
   end_ip_address      = "0.0.0.0"
 }
-
+*/
+/*
 # Optional: SQL Server Firewall Rule to Allow Specific IP Range
 resource "azurerm_sql_firewall_rule" "my_ip_range" {
   name                = "MyIPAddressRange"
@@ -62,3 +70,4 @@ resource "azurerm_sql_firewall_rule" "my_ip_range" {
   start_ip_address    = "YOUR_START_IP"
   end_ip_address      = "YOUR_END_IP"
 }
+*/

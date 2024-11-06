@@ -26,6 +26,7 @@ func main() {
 	e.File("/vendored/htmx_v2.0.3.min.js", "vendored/htmx_v2.0.3.min.js")
 
 	home := templates.Index()
+	user := templates.Login()
 
 	e.GET("/", func(c echo.Context) error {
 		return home.Render(context.Background(), c.Response().Writer)
@@ -33,6 +34,10 @@ func main() {
 
 	e.GET("/tracking", func(c echo.Context) error {
 		return c.String(http.StatusOK, "Hello, uwu!")
+	})
+
+	e.GET("/user", func(c echo.Context) error {
+		return user.Render(context.Background(), c.Response().Writer)
 	})
 
 	e.GET("/show", show)

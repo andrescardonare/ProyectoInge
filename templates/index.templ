@@ -12,51 +12,58 @@ templ Index() {
     </head>
 
     <body class="bg-white text-gray-800">
-    <!-- Header Section -->
+    <!-- NavBar Section -->
     <header class="bg-green-300 p-4 sticky top-0 z-50">
         <div class="container mx-auto flex justify-between items-center">
-            <a class="text-black-50 font-bold text-2xl" href="#">Navix</a>
+            <a class="text-black-50 font-bold text-2xl" href="/">Navix</a>
             <nav>
                 <ul class="flex space-x-4">
                     <li><a href="/" class="text-black-50 hover:text-gray-200">Home</a></li>
                     <li><a href="#" class="text-black-50 hover:text-gray-200">Quienes Somos</a></li>
                     <li><a href="#" class="text-black-50 hover:text-gray-200">Reconocimientos</a></li>
                     <li><a href="#" class="text-black-50 hover:text-gray-200">Rastrea</a></li>
-                    <li><a href="#" class="text-black-50 hover:text-gray-200">Ingresa</a></li>
+                    <li><a href="/user" class="text-black-50 hover:text-gray-200">Ingresa</a></li>
                 </ul>
             </nav>
         </div>
     </header>
 
     <!-- Slider Section -->
-    <section class="relative">
-        <div class="relative overflow-hidden">
-            <div class="flex">
-                <!-- Slide 1 -->
-                <div class="min-w-full h-screen md:h-96 flex items-center bg-green-300 text-black-50">
-                    <div class="container mx-auto flex flex-col md:flex-row items-center">
-                        <div class="w-full md:w-1/2 p-6 text-center md:text-left">
-                            <h1 class="text-3xl md:text-4xl font-bold mb-4 leading-tight">
-                                Planea tus rutas con inteligencia artificial
-                            </h1>
-                            <p class="text-base md:text-lg mb-6">
-                                Automatiza el proceso de gestión de envíos de tu compañía mediante inteligencia artificial
-                                para hallar tus recorridos en cuestión de segundos.
-                            </p>
-                            <a href="#"
-                               class="bg-white text-green-600 px-40 py-20 rounded-full hover:bg-gray-200">
-                                Empieza Ya
-                            </a>
-
-                        </div>
-                        <div class="w-full md:w-1/2 mt-6 md:mt-0 flex justify-center md:justify-end">
-                            <img src="../../assets/images/Directionsbro-storyset.svg" alt="img1" class="w-3/4 md:w-full">
+    <div>
+    <div>
+        <section class="relative">
+            <div class="relative overflow-hidden">
+                <div class="flex">
+                    <!-- Slide 1 -->
+                    <div class="min-w-full h-2/3 md:h-96 flex items-center bg-green-300 text-black-50">
+                        <div class="container mx-auto flex flex-col md:flex-row items-center">
+                            <div class="w-full md:w-1/2 p-6 text-center md:text-left">
+                                <h1 class="text-3xl md:text-4xl font-bold mb-4 leading-tight">
+                                    Planea tus rutas con inteligencia artificial
+                                </h1>
+                                <p class="text-base md:text-lg mb-6">
+                                    Automatiza el proceso de gestión de envíos de tu compañía mediante inteligencia artificial
+                                    para hallar tus recorridos en cuestión de segundos.
+                                </p>
+                                <button hx-post="/clicked"
+                                    hx-trigger="click"
+                                    hx-target="#parent-div"
+                                    hx-swap="outerHTML"
+                                    class="bg-white text-green-600 px-6 py-3 rounded-full hover:bg-gray-200"
+                                >
+                                    Empieza ya
+                                </button>
+                            </div>
+                            <div class="w-full md:w-1/2 mt-6 md:mt-0 flex justify-center md:justify-end">
+                                <img src="/assets/images/Directionsbro-storyset.svg" alt="img1" class="w-3/4 md:w-full">
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
+    </div>
+
 
 
     <!-- Features Section -->
@@ -88,13 +95,14 @@ templ Index() {
             </div>
         </div>
     </section>
-
+    </div>
     <!-- Footer Section -->
-    <footer class="bg-green-300 text-white py-6">
+    <footer class="bg-green-300 text-black-50 py-6">
         <div class="container mx-auto text-center">
             <p>&copy; 2024 Universidad Tecnologica de Bolivar. Todos los derechos reservados.</p>
         </div>
     </footer>
+
     </body>
     </html>
 }
