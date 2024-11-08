@@ -4,6 +4,7 @@ go 1.22
 
 require (
 	github.com/a-h/templ v0.2.778
+	github.com/joho/godotenv v1.5.1
 	github.com/labstack/echo/v4 v4.12.0
 	github.com/microsoft/go-mssqldb v1.7.2
 )

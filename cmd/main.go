@@ -1,12 +1,24 @@
 package main
 
 import (
+	"ProyectoInge/controllers"
 	"ProyectoInge/templates"
 	"context"
 	"fmt"
+	"github.com/joho/godotenv"
 	"github.com/labstack/echo/v4"
+	"log"
 	"net/http"
+	"time"
 )
+
+func loadEnv() {
+	err := godotenv.Load()
+	if err != nil {
+		log.Fatal("Error loading .env file")
+	}
+	time.Sleep(2 * time.Second)
+}
 
 // e.GET("/show", show)
 func show(c echo.Context) error {
@@ -17,6 +29,9 @@ func show(c echo.Context) error {
 }
 
 func main() {
+	loadEnv()
+	controllers.DBconnection()
+
 	port := ":3000"
 	fmt.Printf("http://localhost%s", port)
 
