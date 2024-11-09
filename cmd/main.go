@@ -1,7 +1,6 @@
 package main
 
 import (
-	"ProyectoInge/controllers"
 	"ProyectoInge/templates"
 	"context"
 	"fmt"
@@ -9,7 +8,6 @@ import (
 	"github.com/labstack/echo/v4"
 	"log"
 	"net/http"
-	"time"
 )
 
 func loadEnv() {
@@ -17,7 +15,6 @@ func loadEnv() {
 	if err != nil {
 		log.Fatal("Error loading .env file")
 	}
-	time.Sleep(2 * time.Second)
 }
 
 // e.GET("/show", show)
@@ -30,7 +27,7 @@ func show(c echo.Context) error {
 
 func main() {
 	loadEnv()
-	controllers.DBconnection()
+	//controllers.DBconnection()
 
 	port := ":3000"
 	fmt.Printf("http://localhost%s", port)
@@ -41,7 +38,7 @@ func main() {
 	e.File("/vendored/htmx_v2.0.3.min.js", "vendored/htmx_v2.0.3.min.js")
 
 	home := templates.Index()
-	user := templates.Login()
+	login := templates.Login()
 
 	e.GET("/", func(c echo.Context) error {
 		return home.Render(context.Background(), c.Response().Writer)
@@ -51,8 +48,16 @@ func main() {
 		return c.String(http.StatusOK, "Hello, uwu!")
 	})
 
-	e.GET("/user", func(c echo.Context) error {
-		return user.Render(context.Background(), c.Response().Writer)
+	e.GET("/login", func(c echo.Context) error {
+		return login.Render(context.Background(), c.Response().Writer)
+	})
+
+	e.GET("/logout", func(c echo.Context) error {
+		return c.String(http.StatusOK, "logout")
+	})
+
+	e.GET("/app", func(c echo.Context) error {
+		return c.String(http.StatusOK, "app")
 	})
 
 	e.GET("/show", show)
