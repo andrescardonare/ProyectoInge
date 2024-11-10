@@ -3,14 +3,24 @@ package controllers
 import (
 	"context"
 	"database/sql"
-	"errors"
 	"fmt"
 	_ "github.com/microsoft/go-mssqldb"
 	"log"
 	"os"
+	"time"
 )
 
 var db *sql.DB
+
+type User struct {
+	ID             int       `gorm:"primaryKey;autoIncrement"`
+	Username       string    `gorm:"size:50;unique;not null"`
+	HashedPassword string    `gorm:"type:nvarchar(MAX);not null"`
+	SessionToken   *string   `gorm:"type:nvarchar(MAX)"` // nullable
+	CSRFToken      *string   `gorm:"type:nvarchar(MAX)"` // nullable
+	CreatedAt      time.Time `gorm:"autoCreateTime"`
+	UpdatedAt      time.Time `gorm:"autoUpdateTime"`
+}
 
 func DBconnection() {
 	var server = os.Getenv("DB_SERVER")
@@ -36,128 +46,63 @@ func DBconnection() {
 	fmt.Println("DB Connection Established!")
 }
 
-// CreateEmployee inserts an employee record
-func CreateEmployee(name string, location string) (int64, error) {
-	ctx := context.Background()
-	var err error
-
-	if db == nil {
-		err = errors.New("CreateEmployee: db is null")
-		return -1, err
-	}
-
-	// Check if database is alive.
-	err = db.PingContext(ctx)
-	if err != nil {
-		return -1, err
-	}
-
-	tsql := `
-      INSERT INTO TestSchema.Employees (Name, Location) VALUES (@Name, @Location);
-      select isNull(SCOPE_IDENTITY(), -1);
+func createUser(username, hashedPassword string) (int, error) {
+	query := `
+        INSERT INTO users (username, hashed_password, created_at, updated_at)
+        OUTPUT INSERTED.id
+        VALUES (@p1, @p2, @p3, @p4);
     `
-
-	stmt, err := db.Prepare(tsql)
+	var userID int
+	err := db.QueryRow(query, username, hashedPassword, time.Now(), time.Now()).Scan(&userID)
 	if err != nil {
-		return -1, err
+		return 0, fmt.Errorf("failed to insert user: %w", err)
 	}
-	defer stmt.Close()
-
-	row := stmt.QueryRowContext(
-		ctx,
-		sql.Named("Name", name),
-		sql.Named("Location", location))
-	var newID int64
-	err = row.Scan(&newID)
-	if err != nil {
-		return -1, err
-	}
-
-	return newID, nil
+	return userID, nil
 }
 
-// ReadEmployees reads all employee records
-func ReadEmployees() (int, error) {
-	ctx := context.Background()
-
-	// Check if database is alive.
-	err := db.PingContext(ctx)
+// Retrieve a user by username
+func getUserByUsername(username string) (*User, error) {
+	query := `
+        SELECT id, username, hashed_password, session_token, csrf_token, created_at, updated_at
+        FROM users
+        WHERE username = @p1;
+    `
+	row := db.QueryRow(query, username)
+	user := User{}
+	err := row.Scan(
+		&user.ID, &user.Username, &user.HashedPassword,
+		&user.SessionToken, &user.CSRFToken,
+		&user.CreatedAt, &user.UpdatedAt,
+	)
 	if err != nil {
-		return -1, err
-	}
-
-	tsql := fmt.Sprintf("SELECT Id, Name, Location FROM TestSchema.Employees;")
-
-	// Execute query
-	rows, err := db.QueryContext(ctx, tsql)
-	if err != nil {
-		return -1, err
-	}
-
-	defer rows.Close()
-
-	var count int
-
-	// Iterate through the result set.
-	for rows.Next() {
-		var name, location string
-		var id int
-
-		// Get values from row.
-		err := rows.Scan(&id, &name, &location)
-		if err != nil {
-			return -1, err
+		if err == sql.ErrNoRows {
+			return nil, fmt.Errorf("user not found")
 		}
-
-		fmt.Printf("ID: %d, Name: %s, Location: %s\n", id, name, location)
-		count++
+		return nil, fmt.Errorf("failed to query user: %w", err)
 	}
-
-	return count, nil
+	return &user, nil
 }
 
-// UpdateEmployee updates an employee's information
-func UpdateEmployee(name string, location string) (int64, error) {
-	ctx := context.Background()
-
-	// Check if database is alive.
-	err := db.PingContext(ctx)
+// Update a user's session and CSRF tokens
+func updateUserTokens(userID int, sessionToken, csrfToken string) error {
+	query := `
+        UPDATE users
+        SET session_token = @p1, csrf_token = @p2, updated_at = @p3
+        WHERE id = @p4;
+    `
+	_, err := db.Exec(query, sessionToken, csrfToken, time.Now(), userID)
 	if err != nil {
-		return -1, err
+		return fmt.Errorf("failed to update tokens: %w", err)
 	}
-
-	tsql := fmt.Sprintf("UPDATE TestSchema.Employees SET Location = @Location WHERE Name = @Name")
-
-	// Execute non-query with named parameters
-	result, err := db.ExecContext(
-		ctx,
-		tsql,
-		sql.Named("Location", location),
-		sql.Named("Name", name))
-	if err != nil {
-		return -1, err
-	}
-
-	return result.RowsAffected()
+	return nil
 }
 
-// DeleteEmployee deletes an employee from the database
-func DeleteEmployee(name string) (int64, error) {
-	ctx := context.Background()
-
-	// Check if database is alive.
-	err := db.PingContext(ctx)
+// Delete a user by ID
+func deleteUser(userID int) error {
+	query := `DELETE FROM users WHERE id = @p1;`
+	_, err := db.Exec(query, userID)
 	if err != nil {
-		return -1, err
+		return fmt.Errorf("failed to delete user: %w", err)
 	}
-
-	tsql := fmt.Sprintf("DELETE FROM TestSchema.Employees WHERE Name = @Name;")
-
-	// Execute non-query with named parameters
-	result, err := db.ExecContext(ctx, tsql, sql.Named("Name", name))
-	if err != nil {
-		return -1, err
-	}
-
-	return result.RowsAffected()
+	return nil
 }

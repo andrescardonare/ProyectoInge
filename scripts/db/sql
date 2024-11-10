@@ -1,0 +1,10 @@
+CREATE TABLE users (
+    id INT IDENTITY(1,1) PRIMARY KEY,         -- Auto-incremented unique identifier
+    username NVARCHAR(50) UNIQUE NOT NULL,    -- Username, must be unique and not null
+    hashed_password NVARCHAR(MAX) NOT NULL,   -- Hashed password
+    session_token NVARCHAR(MAX),              -- Session token, nullable
+    csrf_token NVARCHAR(MAX),                 -- CSRF token, nullable
+    created_at DATETIME2 DEFAULT GETDATE(),   -- Timestamp of user creation
+    updated_at DATETIME2 DEFAULT GETDATE()    -- Timestamp of last update
+);
+

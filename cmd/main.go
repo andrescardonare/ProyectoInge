@@ -37,10 +37,13 @@ func main() {
 	e.Static("/assets", "assets")
 	e.File("/vendored/htmx_v2.0.3.min.js", "vendored/htmx_v2.0.3.min.js")
 
+	e.Use()
+
 	home := templates.Index()
-	login := templates.Login()
+	auth := templates.Auth()
 
 	e.GET("/", func(c echo.Context) error {
+
 		return home.Render(context.Background(), c.Response().Writer)
 	})
 
@@ -49,7 +52,7 @@ func main() {
 	})
 
 	e.GET("/login", func(c echo.Context) error {
-		return login.Render(context.Background(), c.Response().Writer)
+		return auth.Render(context.Background(), c.Response().Writer)
 	})
 
 	e.GET("/logout", func(c echo.Context) error {
