@@ -4,7 +4,7 @@ module.exports = {
         "./cmd/main.go",
         "./templates/**/*.{html,js,templ,go}",
         "./templates/index.templ",
-        "./templates/login.templ",
+        "./templates/auth.templ",
         "./templates/*.{html,js,templ,go}"
     ],
     theme: {
