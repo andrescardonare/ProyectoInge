@@ -45,13 +45,14 @@ func main() {
 	auth := templates.Auth()
 	register := templates.Register()
 	login := templates.LogIn()
+	trck := templates.Tracking()
 
 	e.GET("/", func(c echo.Context) error {
 		return home.Render(context.Background(), c.Response().Writer)
 	})
 
 	e.GET("/tracking", func(c echo.Context) error {
-		return c.String(http.StatusOK, "Hello, uwu!")
+		return trck.Render(context.Background(), c.Response().Writer)
 	})
 
 	e.GET("/auth", func(c echo.Context) error {

@@ -1,9 +1,10 @@
 package controllers
 
 import (
+	"ProyectoInge/templates"
+	"context"
 	"crypto/rand"
 	"encoding/base64"
-	"fmt"
 	"github.com/labstack/echo/v4"
 	"golang.org/x/crypto/bcrypt"
 	"log"
@@ -123,16 +124,17 @@ func AuthMiddleware(next echo.HandlerFunc) echo.HandlerFunc {
 }
 
 func Protected(c echo.Context) error {
-	if c.Request().Method != http.MethodPost {
-		return c.String(http.StatusMethodNotAllowed, "Metodo de solicitud ilegal")
-	}
+	/*
+		if c.Request().Method != http.MethodPost {
+			return c.String(http.StatusMethodNotAllowed, "Metodo de solicitud ilegal")
+		}
+	*/
 
 	if err := authorize(c); err != nil {
 		return c.String(http.StatusUnauthorized, "No autorizado")
 	}
 
-	username := c.FormValue("username")
-	return c.String(http.StatusOK, fmt.Sprintf("CSRF validation successful, user: %s", username))
+	return templates.Protected().Render(context.Background(), c.Response().Writer)
 }
 
 func hashPassword(password string) (string, error) {
@@ -154,21 +156,26 @@ func generateToken(length int) string {
 }
 
 func authorize(c echo.Context) error {
-	username := c.FormValue("username")
-	user, err := getUserByUsername(username)
-	if err != nil {
-		return fmt.Errorf("AuthError")
-	}
-
-	sessionToken, err := c.Cookie("sessionToken")
-	if err != nil || sessionToken.Value == "" || sessionToken.Value != user.SessionToken {
-		return fmt.Errorf("AuthError")
-	}
-
-	csrf := c.Request().Header.Get("X-CSRF-Token")
-	if csrf != user.CSRFToken || csrf == "" {
-		return fmt.Errorf("AuthError")
-	}
-
 	return nil
+	/*
+		username := c.FormValue("username")
+		hash, _ := hashPassword(c.FormValue("password"))
+		user, err := getUserByUsername(username)
+		if err != nil {
+			return fmt.Errorf("AuthError")
+		}
+
+		sessionToken, err := c.Cookie("sessionToken")
+		if err != nil || sessionToken.Value == "" || sessionToken.Value != user.SessionToken {
+			return fmt.Errorf("AuthError")
+		}
+
+		csrf := c.Request().Header.Get("X-CSRF-Token")
+		if csrf != user.CSRFToken || csrf == "" {
+			return fmt.Errorf("AuthError")
+		}
+
+		return nil
+	*/
+
 }
