@@ -3,7 +3,6 @@ package controllers
 import (
 	"crypto/rand"
 	"encoding/base64"
-	"errors"
 	"fmt"
 	"github.com/labstack/echo/v4"
 	"golang.org/x/crypto/bcrypt"
@@ -12,38 +11,35 @@ import (
 	"time"
 )
 
-var AuthError = errors.New("Unauthorized")
-
-type loginData struct {
-	email          string
-	HashedPassword string
-	SessionToken   string
-	CSRFToken      string
-}
-
-func register(c echo.Context) error {
+func Register(c echo.Context) error {
+	// verifies method
 	if c.Request().Method != http.MethodPost {
 		return c.String(http.StatusMethodNotAllowed, "Ilegal")
 	}
 
+	// get forms
 	username := c.FormValue("username")
 	password := c.FormValue("password")
 	if len(username) < 8 || len(password) < 8 {
 		return c.String(http.StatusNotAcceptable, "Usuario/Contraseña debe ser mayor a 8 caracteres")
 	}
 
-	if _, ok := users[username]; ok {
-		return c.String(http.StatusConflict, "Usuario ya existe")
+	// checks if user exists
+	if usr, _ := getUserByUsername(username); usr != nil {
+		return c.String(http.StatusOK, "Usuario ya existe!")
 	}
 
-	hashedPassword, _ := hashPassword(password)
-	users[username] = Login{
-		HashedPassword: hashedPassword,
+	hashed, _ := hashPassword(password)
+	// registers user
+	err := createUserDB(username, hashed)
+	if err != nil {
+		return c.String(http.StatusOK, "Usuario ya existe!")
 	}
+
 	return c.String(http.StatusOK, "Registro exitoso")
 }
 
-func login(c echo.Context) error {
+func Login(c echo.Context) error {
 	if c.Request().Method != http.MethodPost {
 		return c.String(http.StatusMethodNotAllowed, "Ilegal")
 	}
@@ -51,9 +47,9 @@ func login(c echo.Context) error {
 	username := c.FormValue("username")
 	password := c.FormValue("password")
 
-	user, ok := users[username]
+	user, err := getUserByUsername(username)
 
-	if !ok || !checkHashPassword(password, user.HashedPassword) {
+	if err != nil || !checkHashPassword(password, user.HashedPassword) {
 		return c.String(http.StatusUnauthorized, "Invalid username or password")
 	}
 
@@ -76,11 +72,9 @@ func login(c echo.Context) error {
 	})
 
 	// store session token to db
-	user.SessionToken = sessionToken
-	user.CSRFToken = csrfToken
-	users[username] = user
+	_ = updateTokensDB(username, sessionToken, csrfToken)
 
-	return c.String(http.StatusOK, "Login successful")
+	return c.String(http.StatusOK, "login successful")
 }
 
 func logout(c echo.Context) error {
@@ -103,16 +97,32 @@ func logout(c echo.Context) error {
 		HttpOnly: false,
 	})
 
-	username := c.FormValue("username")
-	user := users[username]
-	user.SessionToken = ""
-	user.CSRFToken = ""
-	users[username] = user
-
 	return c.String(http.StatusOK, "Logout successful")
 }
 
-func protected(c echo.Context) error {
+func AuthMiddleware(next echo.HandlerFunc) echo.HandlerFunc {
+	return func(c echo.Context) error {
+		sessionToken, err := c.Cookie("sessionToken")
+		if err != nil || sessionToken.Value == "" {
+			return c.String(http.StatusUnauthorized, "No autorizado")
+		}
+
+		// Aquí puedes agregar lógica adicional para verificar el token en la base de datos
+		/*
+				user, err := getUserBySessionToken(sessionToken.Value)
+				if err != nil || user == nil {
+					return c.String(http.StatusUnauthorized, "No autorizado")
+				}
+
+
+			// Almacena información del usuario en el contexto para uso posterior
+			c.Set("user", user)
+		*/
+		return next(c)
+	}
+}
+
+func Protected(c echo.Context) error {
 	if c.Request().Method != http.MethodPost {
 		return c.String(http.StatusMethodNotAllowed, "Metodo de solicitud ilegal")
 	}
@@ -145,8 +155,8 @@ func generateToken(length int) string {
 
 func authorize(c echo.Context) error {
 	username := c.FormValue("username")
-	user, ok := users[username]
-	if !ok {
+	user, err := getUserByUsername(username)
+	if err != nil {
 		return fmt.Errorf("AuthError")
 	}
 

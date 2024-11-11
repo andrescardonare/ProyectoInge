@@ -1,6 +1,7 @@
 package main
 
 import (
+	"ProyectoInge/controllers"
 	"ProyectoInge/templates"
 	"context"
 	"fmt"
@@ -27,7 +28,8 @@ func show(c echo.Context) error {
 
 func main() {
 	loadEnv()
-	//controllers.DBconnection()
+	controllers.DBconnection()
+	//controllers.register()
 
 	port := ":3000"
 	fmt.Printf("http://localhost%s", port)
@@ -41,9 +43,10 @@ func main() {
 
 	home := templates.Index()
 	auth := templates.Auth()
+	register := templates.Register()
+	login := templates.LogIn()
 
 	e.GET("/", func(c echo.Context) error {
-
 		return home.Render(context.Background(), c.Response().Writer)
 	})
 
@@ -51,9 +54,21 @@ func main() {
 		return c.String(http.StatusOK, "Hello, uwu!")
 	})
 
-	e.GET("/login", func(c echo.Context) error {
+	e.GET("/auth", func(c echo.Context) error {
 		return auth.Render(context.Background(), c.Response().Writer)
 	})
+
+	e.GET("/register", func(c echo.Context) error {
+		return register.Render(context.Background(), c.Response().Writer)
+	})
+
+	e.POST("/register", controllers.Register)
+
+	e.GET("/login", func(c echo.Context) error {
+		return login.Render(context.Background(), c.Response().Writer)
+	})
+
+	e.POST("/login", controllers.Login)
 
 	e.GET("/logout", func(c echo.Context) error {
 		return c.String(http.StatusOK, "logout")
@@ -62,6 +77,8 @@ func main() {
 	e.GET("/app", func(c echo.Context) error {
 		return c.String(http.StatusOK, "app")
 	})
+
+	e.GET("/protected", controllers.Protected, controllers.AuthMiddleware)
 
 	e.GET("/show", show)
 
