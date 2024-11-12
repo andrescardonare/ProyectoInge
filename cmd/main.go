@@ -9,6 +9,7 @@ import (
 	"github.com/labstack/echo/v4"
 	"log"
 	"net/http"
+	"os"
 )
 
 func loadEnv() {
@@ -28,8 +29,13 @@ func show(c echo.Context) error {
 
 func main() {
 	loadEnv()
-	controllers.DBconnection()
 	//controllers.register()
+
+	if len(os.Args) < 1 {
+		controllers.DBconnection()
+	} else {
+		fmt.Println("Modo Demo")
+	}
 
 	port := ":3000"
 	fmt.Printf("http://localhost%s", port)
