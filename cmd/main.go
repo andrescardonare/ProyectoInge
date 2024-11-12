@@ -44,14 +44,25 @@ func main() {
 
 	e.Static("/assets", "assets")
 	e.File("/vendored/htmx_v2.0.3.min.js", "vendored/htmx_v2.0.3.min.js")
+	e.File("/DEMO_MODE", "templates/tables.html")
 
-	e.Use()
+	/*
+		e.Use(middleware.BasicAuth(func(username, password string, c echo.Context) (bool, error) {
+			// Be careful to use constant time comparison to prevent timing attacks
+			if subtle.ConstantTimeCompare([]byte(username), []byte("demo_utb")) == 1 &&
+				subtle.ConstantTimeCompare([]byte(password), []byte("secret")) == 1 {
+				return true, nil
+			}
+			return false, nil
+		}))
+	*/
 
 	home := templates.Index()
 	auth := templates.Auth()
 	register := templates.Register()
 	login := templates.LogIn()
 	trck := templates.Tracking()
+	//protec := templates.Protected()
 
 	e.GET("/", func(c echo.Context) error {
 		return home.Render(context.Background(), c.Response().Writer)
@@ -82,10 +93,10 @@ func main() {
 	})
 
 	e.GET("/app", func(c echo.Context) error {
-		return c.String(http.StatusOK, "app")
+		return c.File("tables.html")
 	})
 
-	e.GET("/protected", controllers.Protected, controllers.AuthMiddleware)
+	//e.GET("/protected")
 
 	e.GET("/show", show)
 

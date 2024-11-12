@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Estilo adicional para hacer la tabla desplazable */
+        .scrollable-table-container {
+            max-height: 300px; /* Ajusta la altura máxima según sea necesario */
+            overflow-y: auto;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+<header class="bg-green-300 p-4 sticky top-0 z-50">
+    <div class="container mx-auto flex justify-between items-center">
+        <a class="text-black-50 font-bold text-2xl" href="/">Navix</a>
+    </div>
+</header>
+
+<div class="p-4 bg-white flex flex-col items-center min-h-screen">
+<!-- Sección de rutas con tabla desplazable -->
+<section id="routesSection" class="mt-6 w-full max-w-md">
+    <h2 class="text-lg font-bold mb-4">Tus rutas</h2>
+    <div class="scrollable-table-container">
+        <table class="w-full bg-white border border-gray-200">
+            <thead class="bg-green-100">
+            <tr>
+                <th class="py-2 px-4 border-b">Ruta</th>
+                <th class="py-2 px-4 border-b">Estado</th>
+            </tr>
+            </thead>
+            <tbody id="rutasContainer"></tbody>
+        </table>
+    </div>
+</section>
+
+<!-- Botón para abrir el modal -->
+<section id="createRouteButton" class="mt-4">
+    <button onclick="toggleModal()" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">Crear nueva ruta</button>
+</section>
+
+<!-- Modal de Creación de Rutas -->
+<section id="routeCreationModal">
+    <div id="modalOverlay" class="fixed inset-0 bg-green-500 bg-opacity-50 transition-opacity hidden" aria-hidden="true"></div>
+    <div id="modalContainer" class="fixed inset-0 z-10 overflow-y-auto hidden">
+        <div class="flex items-center justify-center min-h-screen p-4 text-center sm:p-0">
+            <div class="relative bg-white rounded-lg shadow-xl w-full max-w-md">
+                <div class="px-4 py-5">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="text-lg font-semibold text-gray-900">Crear Nueva Ruta</h3>
+                        <button type="button" onclick="toggleModal()" class="text-gray-500 hover:text-gray-700">&times;</button>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Dirección de Origen</label>
+                        <input type="text" id="direccionOrigen" class="border border-gray-300 rounded p-2 w-full mb-4" placeholder="Ingrese dirección de origen">
+
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Direcciones de Destino</label>
+                        <div id="destinosContainer">
+                            <input type="text" class="border border-gray-300 rounded p-2 w-full mb-4" placeholder="Ingrese dirección de destino 1">
+                            <input type="text" class="border border-gray-300 rounded p-2 w-full mb-4" placeholder="Ingrese dirección de destino 2">
+                            <input type="text" class="border border-gray-300 rounded p-2 w-full mb-4" placeholder="Ingrese dirección de destino 3">
+                        </div>
+                    </div>
+                    <div id="errorMensaje" class="text-red-500 text-sm mb-4 hidden"></div>
+                    <div class="mt-5 flex flex-col space-y-2">
+                        <button type="button" onclick="crearRuta()" class="bg-green-500 px-4 py-2 text-white rounded hover:bg-green-600">Crear Ruta</button>
+                        <button type="button" onclick="toggleModal()" class="bg-gray-300 px-4 py-2 rounded text-gray-700 hover:bg-gray-400">Cancelar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <footer class="bg-green-300 text-black-50 py-6">
+        <div class="container mx-auto text-center">
+            <p>&copy; 2024 Universidad Tecnologica de Bolivar. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+</section>
+
+<!-- Funciones de JavaScript -->
+<script>
+    function toggleModal() {
+        const modalOverlay = document.getElementById('modalOverlay');
+        const modalContainer = document.getElementById('modalContainer');
+        modalOverlay.classList.toggle('hidden');
+        modalContainer.classList.toggle('hidden');
+        const errorDiv = document.getElementById('errorMensaje');
+        errorDiv.classList.add('hidden');
+    }
+
+    function crearRuta() {
+        const origen = document.getElementById('direccionOrigen').value;
+        const destinos = Array.from(document.querySelectorAll('#destinosContainer input')).map(input => input.value).filter(value => value);
+
+        if (!origen || destinos.length < 1) {
+            mostrarError("Debe ingresar al menos una dirección de origen y un destino.");
+            return;
+        }
+
+        const rutasContainer = document.getElementById('rutasContainer');
+        const newRow = document.createElement('tr');
+        newRow.innerHTML = `
+        <td class="py-2 px-4 border-b align-top whitespace-nowrap">
+          <div><strong>Ruta:</strong></div>
+          <div>Origen: ${origen}</div>
+          ${destinos.map(destino => `<div>Destino: ${destino}</div>`).join('')}
+        </td>
+        <td class="py-2 px-4 border-b align-top text-center">
+          <span>En Progreso</span>
+        </td>
+      `;
+        rutasContainer.appendChild(newRow);
+
+        toggleModal();
+        limpiarFormulario();
+    }
+
+    function mostrarError(mensaje) {
+        const errorDiv = document.getElementById('errorMensaje');
+        errorDiv.textContent = mensaje;
+        errorDiv.classList.remove('hidden');
+    }
+
+    function limpiarFormulario() {
+        document.getElementById('direccionOrigen').value = '';
+        const inputs = document.querySelectorAll('#destinosContainer input');
+        inputs.forEach(input => input.value = '');
+    }
+</script>
+</body>
+</html>

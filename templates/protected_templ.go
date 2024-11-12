@@ -29,7 +29,7 @@ func Protected() templ.Component {
 			templ_7745c5c3_Var1 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<!doctype html><html lang=\"es\"><head><meta charset=\"UTF-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"><title>Login</title><link href=\"/assets/css/output.css\" rel=\"stylesheet\"><script src=\"/vendored/htmx_v2.0.3.min.js\"></script></head><body><header class=\"bg-green-300 p-4 sticky top-0 z-50\"><div class=\"container mx-auto flex justify-between items-center\"><a class=\"text-black-50 font-bold text-2xl\" href=\"/\">Navix</a></div></header><div class=\"bg-gray-100 flex items-center justify-center min-h-screen\"></div><!-- Footer Section --><footer class=\"bg-green-300 text-black-50 py-6\"><div class=\"container mx-auto text-center\"><p>&copy; 2024 Universidad Tecnologica de Bolivar. Todos los derechos reservados.</p></div></footer></body></html>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<img src=\"assets/images/golingon.jpf\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
