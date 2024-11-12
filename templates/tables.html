@@ -20,10 +20,9 @@
         <a class="text-black-50 font-bold text-2xl" href="/">Navix</a>
     </div>
 </header>
-
-<div class="p-4 bg-white flex flex-col items-center min-h-3/4-screen">
+<div class="p-4 bg-white flex flex-col items-center min-h-screen">
 <!-- Sección de rutas con tabla desplazable -->
-<section id="routesSection" class="mt-6 w-full max-w-md">
+<section id="routesSection" class="mt-6 w-full max-w-3/4-md">
     <h2 class="text-lg font-bold mb-4">Tus rutas</h2>
     <div class="scrollable-table-container">
         <table class="w-full bg-white border border-gray-200">
@@ -40,12 +39,12 @@
 
 <!-- Botón para abrir el modal -->
 <section id="createRouteButton" class="mt-4">
-    <button onclick="toggleModal()" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">Crear nueva ruta</button>
+    <button onclick="toggleModal()" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-600">Crear nueva ruta</button>
 </section>
 
 <!-- Modal de Creación de Rutas -->
 <section id="routeCreationModal">
-    <div id="modalOverlay" class="fixed inset-0 bg-green-500 bg-opacity-50 transition-opacity hidden" aria-hidden="true"></div>
+    <div id="modalOverlay" class="fixed inset-0 bg-gray-500 bg-opacity-50 transition-opacity hidden" aria-hidden="true"></div>
     <div id="modalContainer" class="fixed inset-0 z-10 overflow-y-auto hidden">
         <div class="flex items-center justify-center min-h-screen p-4 text-center sm:p-0">
             <div class="relative bg-white rounded-lg shadow-xl w-full max-w-md">
@@ -74,7 +73,7 @@
             </div>
         </div>
     </div>
-    </div>
+</div>
     <footer class="bg-green-300 text-black-50 py-6">
         <div class="container mx-auto text-center">
             <p>&copy; 2024 Universidad Tecnologica de Bolivar. Todos los derechos reservados.</p>
