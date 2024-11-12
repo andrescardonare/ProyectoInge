@@ -28,10 +28,8 @@ func show(c echo.Context) error {
 }
 
 func main() {
-	loadEnv()
-	//controllers.register()
-
 	if len(os.Args) < 1 {
+		loadEnv()
 		controllers.DBconnection()
 	} else {
 		fmt.Println("Modo Demo")
