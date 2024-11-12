@@ -98,5 +98,7 @@ func main() {
 
 	e.GET("/show", show)
 
+	e.POST("/submit-form", controllers.PostToApi)
+
 	e.Logger.Fatal(e.Start(port))
 }
