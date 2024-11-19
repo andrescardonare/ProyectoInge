@@ -17,7 +17,7 @@ templ Tracking() {
     <div>
     @form1()
     </div>
-    @form()
+    //@form()
 
     <!-- Footer Section -->
     <footer class="bg-green-300 text-black-50 py-6">
@@ -58,6 +58,90 @@ templ form1() {
                     de inteligencia artificial y visualízala instantáneamente.
               </p>
 
+              <br>
+              <br>
+
+              <form id="mapForm">
+                  <div class="sm:col-span-3">
+                    <label for="origen" class="block text-sm/6 font-medium text-gray-900">Origen</label>
+                    <div class="mt-2">
+                      <select id="origen" name="origen" autocomplete="origen-name" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm/6">
+                          <option>Centro de Información Turistica, Plaza de la aduana 14.5, 32 #30, Provincia de Cartagena, Bolivar, Colombia</option>
+                          <option>Tierra Cartagena, Calle del Santisimo, Cl. 38 #8-07, San Diego, Cartagena de Indias, Provincia de Cartagena, Bolivar, Colombia</option>
+                          <option>Calle del Toro de Santa Clara, 110, Cra. 2 #37, San Diego, Provincia de Cartagena, Bolivar, Colombia</option>
+
+                          <option>Calle Stuart, Cl. 39, San Diego, Cartagena de Indias, Provincia de Cartagena, Bolivar, Colombia</option>
+                          <option>Fascinacion Textil, Cra. 1 #35-91, El Centro, Cartagena de Indias, Provincia de Cartagena, Bolivar, Colombia</option>
+                          <option>Hostel, Cl. 35, El Centro, Cartagena de Indias, Provincia de Cartagena, Bolivar, Colombia</option>
+
+                          <option>Fundacion Islas Del Rosario Fir, Cl. 33 #9 45, El Centro, Cartagena de Indias, Provincia de Cartagena, Bolivar, Colombia</option>
+                          <option>El algarrobo, Parque de Bolivar, El Centro, Cartagena de Indias, Provincia de Cartagena, Bolivar, Colombia</option>
+                          <option>Cl. 32 #130, El Centro, Cartagena de Indias, Provincia de Cartagena, Bolivar, Colombia</option>
+                          <option>Cra. 5 #35-2, El Centro, Cartagena de Indias, Provincia de Cartagena, Bolivar, Colombia</option>
+                      </select>
+                    </div>
+                  </div>
+                  <br>
+                  <div class="sm:col-span-3">
+                    <label for="origen" class="block text-sm/6 font-medium text-gray-900">Destino</label>
+                    <div class="mt-2">
+                      <select id="country" name="country" autocomplete="country-name" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm/6">
+                         <option>Centro de Información Turistica, Plaza de la aduana 14.5, 32 #30, Provincia de Cartagena, Bolivar, Colombia</option>
+                         <option>Tierra Cartagena, Calle del Santisimo, Cl. 38 #8-07, San Diego, Cartagena de Indias, Provincia de Cartagena, Bolivar, Colombia</option>
+                         <option>Calle del Toro de Santa Clara, 110, Cra. 2 #37, San Diego, Provincia de Cartagena, Bolivar, Colombia</option>
+
+                         <option>Calle Stuart, Cl. 39, San Diego, Cartagena de Indias, Provincia de Cartagena, Bolivar, Colombia</option>
+                         <option>Fascinacion Textil, Cra. 1 #35-91, El Centro, Cartagena de Indias, Provincia de Cartagena, Bolivar, Colombia</option>
+                         <option>Hostel, Cl. 35, El Centro, Cartagena de Indias, Provincia de Cartagena, Bolivar, Colombia</option>
+
+                         <option>Fundacion Islas Del Rosario Fir, Cl. 33 #9 45, El Centro, Cartagena de Indias, Provincia de Cartagena, Bolivar, Colombia</option>
+                         <option>El algarrobo, Parque de Bolivar, El Centro, Cartagena de Indias, Provincia de Cartagena, Bolivar, Colombia</option>
+                         <option>Cl. 32 #130, El Centro, Cartagena de Indias, Provincia de Cartagena, Bolivar, Colombia</option>
+                         <option>Cra. 5 #35-2, El Centro, Cartagena de Indias, Provincia de Cartagena, Bolivar, Colombia</option>
+                      </select>
+                    </div>
+                  </div>
+
+                    <br>
+
+                    <div class="sm:col-span-6">
+                        <label for="date" class="block text-gray-700 font-medium mb-2">Selecciona una fecha</label>
+                        <input
+                          type="date"
+                          id="date"
+                          name="date"
+                          required
+                          class="w-full border border-gray-300 px-4 py-2 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+                        >
+                        <p class="mt-2 text-sm text-gray-600">Por favor selecciona una fecha válida.</p>
+                    </div>
+
+                  <br>
+                  <br>
+
+                  <div class="relative flex gap-x-3">
+                    <div class="flex h-6 items-center">
+                      <input id="lol" type="checkbox" class="size-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600">
+                    </div>
+                    <div class="text-sm/6">
+                      <label for="lol" class="font-medium text-gray-900">Me siento con suerte :)</label>
+                    </div>
+                  </div>
+
+                  <br>
+                  <br>
+
+                  <button
+                      hx-trigger="click"
+                      hx-post="/login"
+                      hx-swap="innerHTML"
+                      hx-target="#message"
+
+                      type="submit"
+                      class="w-full bg-green-400 text-white font-semibold py-2 rounded-lg hover:bg-green-500 my-3">
+                      Completar
+                  </button>
+                  </form>
             </div>
           </div>
         </div>
@@ -66,40 +150,7 @@ templ form1() {
         </div>
         <div class="lg:col-span-2 lg:col-start-1 lg:row-start-2 lg:mx-auto lg:grid lg:w-full lg:max-w-7xl lg:grid-cols-2 lg:gap-x-8 lg:px-8">
           <div class="lg:pr-4">
-            <form>
-            <div class="sm:col-span-3">
-              <label for="origen" class="block text-sm/6 font-medium text-gray-900">Origen</label>
-              <div class="mt-2">
-                <select id="origen" name="origen" autocomplete="origen-name" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm/6">
-                  <option>United States</option>
-                  <option>Canada</option>
-                  <option>Mexico</option>
-                </select>
-              </div>
-            </div>
-            <br>
-            <div class="sm:col-span-3">
-              <label for="origen" class="block text-sm/6 font-medium text-gray-900">Destino</label>
-              <div class="mt-2">
-                <select id="country" name="country" autocomplete="country-name" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm/6">
-                  <option>United States</option>
-                  <option>Canada</option>
-                  <option>Mexico</option>
-                </select>
-              </div>
-            </div>
-            <br>
-            <div class="sm:col-span-3">
-              <label for="origen" class="block text-sm/6 font-medium text-gray-900">Country</label>
-              <div class="mt-2">
-                <select id="country" name="country" autocomplete="country-name" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm/6">
-                  <option>United States</option>
-                  <option>Canada</option>
-                  <option>Mexico</option>
-                </select>
-              </div>
-            </div>
-            </form>
+
           </div>
         </div>
       </div>
@@ -195,9 +246,18 @@ templ form() {
               <label for="origen" class="block text-sm/6 font-medium text-gray-900">Country</label>
               <div class="mt-2">
                 <select id="country" name="country" autocomplete="country-name" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm/6">
-                  <option>United States</option>
-                  <option>Canada</option>
-                  <option>Mexico</option>
+                  <option>Centro de Informacion Turistica, Plaza de la aduana 14.5, 32 #30, Provincia de Cartagena, Bolivar, Colombia</option>
+                  <option>Tierra Cartagena, Calle del Santisimo, Cl. 38 #8-07, San Diego, Cartagena de Indias, Provincia de Cartagena, Bolivar, Colombia</option>
+                  <option>Calle del Toro de Santa Clara, 110, Cra. 2 #37, San Diego, Provincia de Cartagena, Bolivar, Colombia</option>
+
+                  <option>Calle Stuart, Cl. 39, San Diego, Cartagena de Indias, Provincia de Cartagena, Bolivar, Colombia</option>
+                  <option>Fascinacion Textil, Cra. 1 #35-91, El Centro, Cartagena de Indias, Provincia de Cartagena, Bolivar, Colombia</option>
+                  <option>Hostel, Cl. 35, El Centro, Cartagena de Indias, Provincia de Cartagena, Bolivar, Colombia</option>
+
+                  <option>Fundacion Islas Del Rosario Fir, Cl. 33 #9 45, El Centro, Cartagena de Indias, Provincia de Cartagena, Bolivar, Colombia</option>
+                  <option>El algarrobo, Parque de Bolivar, El Centro, Cartagena de Indias, Provincia de Cartagena, Bolivar, Colombia</option>
+                  <option>Cl. 32 #130, El Centro, Cartagena de Indias, Provincia de Cartagena, Bolivar, Colombia</option>
+                  <option>Cra. 5 #35-2, El Centro, Cartagena de Indias, Provincia de Cartagena, Bolivar, Colombia</option>
                 </select>
               </div>
             </div>
