@@ -107,5 +107,15 @@ func main() {
 
 	e.POST("/submit-form", controllers.PostToApi)
 
+	e.GET("/map", func(c echo.Context) error {
+		newImageHTML := `
+			<img 
+				src="/assets/images/mapita.png" 
+				alt="New Placeholder Image" 
+				class="w-[48rem] max-w-none rounded-xl shadow-xl ring-1 ring-gray-400/10 sm:w-[57rem]">
+		`
+		return c.HTML(http.StatusOK, newImageHTML)
+	})
+
 	e.Logger.Fatal(e.Start(port))
 }
