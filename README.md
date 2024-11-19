@@ -4,9 +4,7 @@ Paso 1: Instalar Python
 
 Paso 2: Instalar depenencias
 ```
-pip install pandas fastapi uvicorn
-pip install pandas scikit-learn xgboost openpyxl
-pip install jinja2 python-multipart
+pip install pandas fastapi uvicorn scikit-learn xgboost openpyxl python-multipart
 ```
 
 Paso 3: Ejecutar en el ./ del folder
