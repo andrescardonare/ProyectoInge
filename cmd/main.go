@@ -60,6 +60,7 @@ func main() {
 	register := templates.Register()
 	login := templates.LogIn()
 	trck := templates.Tracking()
+	acknow := templates.Acknowledgement()
 	//protec := templates.Protected()
 
 	e.GET("/", func(c echo.Context) error {
@@ -68,6 +69,10 @@ func main() {
 
 	e.GET("/tracking", func(c echo.Context) error {
 		return trck.Render(context.Background(), c.Response().Writer)
+	})
+
+	e.GET("/acknowledgements", func(c echo.Context) error {
+		return acknow.Render(context.Background(), c.Response().Writer)
 	})
 
 	e.GET("/auth", func(c echo.Context) error {
@@ -84,7 +89,9 @@ func main() {
 		return login.Render(context.Background(), c.Response().Writer)
 	})
 
-	e.POST("/login", controllers.Login)
+	e.POST("/login", func(c echo.Context) error {
+		return c.String(http.StatusOK, "Deshabilitado para Demostración")
+	})
 
 	e.GET("/logout", func(c echo.Context) error {
 		return c.String(http.StatusOK, "logout")

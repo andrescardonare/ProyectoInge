@@ -59,15 +59,20 @@ templ LogIn(){
 
             <div id="message" class="text-center text-red-500"></div>
 
-            <a href="/DEMO_MODE" class="w-full text-center bg-green-400 text-white font-semibold py-2 rounded-lg hover:bg-green-500 my-3">
-                 Empieza ya (DEMO MODE)
-            </a>
-            <!--
-            <button type="submit" hx-get="/rot" hx-target="#auth_window" hx-swap="innerHTML"
-                    class="w-full bg-green-400 text-white font-semibold py-2 rounded-lg hover:bg-green-500 my-3">
+            <button
+                hx-trigger="click"
+                hx-post="/login"
+                hx-swap="innerHTML"
+                hx-target="#message"
+
+                class="w-full bg-green-400 text-white font-semibold py-2 rounded-lg hover:bg-green-500 my-3">
                 Ingresa
             </button>
-            -->
+
+            <div id="replacement-content" style="display:none;">
+                <div id="text-to-replace" class="mb-4 text-green-700">¡El texto ha sido reemplazado exitosamente!</div>
+            </div>
+
         </form>
         <!--Link to Register-->
         <p class="text-center text-gray-600 mt-3">
@@ -101,8 +106,13 @@ templ Register() {
 
             <div id="message" class="text-center text-red-500"></div>
 
-            <button type="submit"
-                    class="w-full bg-green-400 text-white font-semibold py-2 rounded-lg hover:bg-green-500 my-3">
+            <button
+                hx-trigger="click"
+                hx-post="/login"
+                hx-swap="innerHTML"
+                hx-target="#message"
+
+                class="w-full bg-green-400 text-white font-semibold py-2 rounded-lg hover:bg-green-500 my-3">
                 Completar
             </button>
         </form>

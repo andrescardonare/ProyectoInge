@@ -98,7 +98,7 @@ func navBar() templ.Component {
 			templ_7745c5c3_Var2 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<header class=\"bg-green-300 p-4 sticky top-0 z-50\"><div class=\"container mx-auto flex justify-between items-center\"><a class=\"text-black-50 font-bold text-2xl\" href=\"/\">Navix</a><nav><ul class=\"flex space-x-4\"><li><a href=\"/\" class=\"text-black-50 hover:text-gray-200\">Home</a></li><li><a href=\"#\" class=\"text-black-50 hover:text-gray-200\">Reconocimientos</a></li><li><a href=\"#\" class=\"text-black-50 hover:text-gray-200\">Rastrea</a></li><li><a href=\"/auth\" class=\"text-black-50 hover:text-gray-200\">Ingresa</a></li></ul></nav></div></header>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<header class=\"bg-green-300 p-4 sticky top-0 z-50\"><div class=\"container mx-auto flex justify-between items-center\"><a class=\"text-black-50 font-bold text-2xl\" href=\"/\">Navix</a><nav><ul class=\"flex space-x-4\"><li><a href=\"/\" class=\"text-black-50 hover:text-gray-200\">Home</a></li><li><a href=\"/acknowledgements\" class=\"text-black-50 hover:text-gray-200\">Reconocimientos</a></li><li><a href=\"/tracking\" class=\"text-black-50 hover:text-gray-200\">Rastrea</a></li><li><a href=\"/auth\" class=\"text-black-50 hover:text-gray-200\">Ingresa</a></li></ul></nav></div></header>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

@@ -1,0 +1,157 @@
+package templates
+
+
+templ Acknowledgement() {
+    <!DOCTYPE html>
+    <html lang="es">
+    <head>
+        <meta charset="UTF-8"/>
+        <link href="/assets/css/output.css" rel="stylesheet">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Navix</title>
+        <script src="/vendored/htmx_v2.0.3.min.js"></script>
+    </head>
+
+    <body class="bg-white text-gray-800">
+    @navBar()
+    <br>
+    <br>
+    <div>
+        @thankyou()
+    </div>
+    <br>
+    <br>
+
+    <!-- Footer Section -->
+    <footer class="bg-green-300 text-black-50 py-6">
+        <div class="container mx-auto text-center">
+            <p class="font-semibold">&copy; 2024 <a href="https://www.utb.edu.co/" class="hover:underline font-semibold">Universidad Tecnologica de Bolivar.</a> Todos los derechos reservados.</p>
+            <p>Se utilizaron ilustraciónes licenciadas de Freepik <a href="https://storyset.com/travel" class="hover:underline font-semibold">Storyset</a> </p>
+        </div>
+    </footer>
+    </body>
+    </html>
+}
+
+
+templ thankyou(){
+    <section class="relative">
+        <div class="relative overflow-hidden">
+            <div class="flex">
+                <div class="min-w-full md:h-97 flex items-center bg-gray-300 text-black-50">
+                    <div class="container mx-auto flex flex-col md:flex-row items-center">
+                        <div class="w-full md:w-1/2 p-6 text-center md:text-left">
+                            <h1 class="text-3xl md:text-4xl font-bold mb-4 leading-tight">
+                                A nuestros profesores,
+                            </h1>
+                            <p class="text-base md:text-lg mb-6">
+                                Queremos expresar gratitud por todo lo que han hecho por nosotros. Gracias por
+                                guiarnos con paciencia, compartir su conocimiento y dedicación, y por inspirarnos a ser
+                                mejores cada día. Cada lección que nos enseñaron dejó una huella en nuestras vidas. Este
+                                proyecto no hubiese sido posible sin ustedes.
+                            </p>
+                            <!-- Vertical Profiles Section -->
+                            <div class="mt-8 space-y-6">
+                                <!-- Profesor 1 --><br>
+                                <div class=" border-l-4 p-6 rounded-md shadow-md flex items-center">
+                                    <img
+                                    src="/assets/images/Juan_Carlos_Martinez_pfp.jpg"
+                                    alt="img"
+                                    class="w-16 h-16 object-scale-down rounded-full border-2 "
+                                    >
+
+                                    <div class="ml-6">
+                                        <h2 class="text-2xl font-semibold text-indigo-800">Juan Carlos Martinez Santos</h2>
+                                        <p class="text-gray-700 mt-2">Ingeniero Electrónico, Mgtr. Potencia Eléctrica, PhD. Ingeniería de Computadores.</p>
+                                    </div>
+                                </div>
+
+                                    <!-- Profesor 2 --><br>
+                                <div class=" border-l-4 p-6 rounded-md shadow-md flex items-center">
+                                    <img
+                                    src="/assets/images/Edwin_Puertas_pfp.jpg"
+                                    alt="img"
+                                    class="w-16 h-16 object-scale-down  rounded-full border-2 "
+                                    >
+                                    <div class="ml-6">
+                                        <h2 class="text-2xl font-semibold text-indigo-800">Edwin Puertas del Castillo</h2>
+                                        <p class="text-gray-700 mt-2">Ingeniero de Sistemas, PhD en Ingeniería, Miembro Comité Inteligencia Artificial IEEE.</p>
+                                    </div>
+                                </div>
+
+                                    <!-- Profesor 3 --><br>
+                                <div class=" border-l-4 p-6 rounded-md shadow-md flex items-center">
+                                    <img
+                                    src="/assets/images/Gloriapfp.jpg"
+                                    alt="img"
+                                    class="w-16 h-16 object-scale-down  rounded-full border-2 "
+                                    >
+                                    <div class="ml-6">
+                                        <h2 class="text-2xl font-semibold text-indigo-800">Gloria Isabel Bautista Lasprilla</h2>
+                                        <p class="text-gray-700 mt-2">Ingeniera de Sistemas, Esp. Administración Financiera, Mgtr. Ciencias Computacionales.</p>
+                                    </div>
+                                </div>
+
+                                    <!-- Profesor 4 --><br>
+                                <div class=" border-l-4 p-6 rounded-md shadow-md flex items-center">
+                                    <img
+                                    src="/assets/images/Isaac_Zuniga_pfp.jpg"
+                                    alt="img"
+                                    class="w-16 h-16 object-scale-down  rounded-full border-2"
+                                    >
+                                    <div class="ml-6">
+                                        <h2 class="text-2xl font-semibold text-indigo-800">Isaac Zúñiga Silgado</h2>
+                                        <p class="text-gray-700 mt-2">Ingeniero de Sistemas, Esp. Redes de Computadores. PhD. Administración con Énfasis en Negocios</p>
+                                    </div>
+                                </div>
+
+                                    <!-- Profesor 5 --><br>
+                                <div class="bg-indigo-50 border-l-4 p-6 rounded-md shadow-md flex items-center">
+                                    <img
+                                    src="/assets/images/Juan_Carlos_Mantilla_pfp.jpg"
+                                    alt="img"
+                                    class="w-16 h-16 object-scale-down  rounded-full border-2 "
+                                    >
+                                    <div class="ml-6">
+                                        <h2 class="text-2xl font-semibold text-indigo-800">Juan Carlos Mantilla</h2>
+                                        <p class="text-gray-700 mt-2">Ingeniero de Sistemas, Mgtr. Ciencias de la Computación. Director de Programa</p>
+                                    </div>
+                                </div>
+
+                                    <!-- Profesor 6 --><br>
+                                <div class="bg-indigo-50 border-l-4 p-6 rounded-md shadow-md flex items-center">
+                                    <img
+                                    src="/assets/images/Maria_Fernanda_Medina_pfp.jpg"
+                                    alt="img"
+                                    class="w-16 h-16 object-scale-down  rounded-full border-2 "
+                                    >
+                                    <div class="ml-6">
+                                        <h2 class="text-2xl font-semibold text-indigo-800">María Fernanda Medina Reyes</h2>
+                                        <p class="text-gray-700 mt-2">Ingeniera de Sistemas, Mgtr. Seguridad de las Tecnologias de la Información y Comunicación.</p>
+                                    </div>
+                                </div>
+
+                                    <!-- Profesor 7 --><br>
+                                <div class="border-l-4 p-6 rounded-md shadow-md flex items-center">
+                                    <img
+                                    src="/assets/images/aisnerpfp.jpeg"
+                                    alt="img"
+                                    class="w-16 h-16 object-scale-down  rounded-full border-2 "
+                                    >
+                                    <div class="ml-6">
+                                        <h2 class="text-2xl font-semibold text-indigo-800">Aisner Juliao Marrugo</h2>
+                                        <p class="text-gray-700 mt-2">Ingeniero de Sistemas, Ingeniero de datos, Profesor de Proyecto de Ingenieria</p>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="w-full md:w-1/2 mt-6 md:mt-0 flex justify-center md:justify-end">
+                            <img src="/assets/images/Papermapbro-storyset.svg" alt="img1" class="w-3/4 md:w-full">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+}
